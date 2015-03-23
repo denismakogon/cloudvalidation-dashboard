@@ -3,9 +3,3 @@
 # process, which may cause wedges in the gate later.
 
 pbr>=0.6,!=0.7,<1.0
-
-# Horizon lates milestone
-git+https://github.com/openstack/horizon.git
-
-# Cloudvalidation OSTF adapter client
-git+https://github.com/stackforge/cloudv-ostf-adapter.git
