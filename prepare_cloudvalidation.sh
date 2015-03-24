@@ -39,6 +39,7 @@ function insert_plugin {
     local dest=$1
     local src="${SCRIPT_DIR}/cloudvalidation_dashboard/local/*"
     echo "Moving plugin file from $src to $dest"
+
     cp ${src} ${dest}
 
     check_succsess
