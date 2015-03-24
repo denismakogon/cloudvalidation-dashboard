@@ -1,1 +1,10 @@
-recursive-include public *
+recursive-include mcloudv_web/static *
+recursive-include mcloudv_web/templates *
+include ChangeLog
+include README.rst
+include MANIFEST.in
+include AUTHORS
+include LICENSE
+include ChangeLog
+include tox.ini
+global-exclude *.pyc
