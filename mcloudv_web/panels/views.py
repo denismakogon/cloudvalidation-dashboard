@@ -21,7 +21,7 @@ from mcloudv_web.tables import ostf_table
 
 class IndexView(tables.DataTableView):
     table_class = ostf_table.OSTFTable
-    template_name = 'mcloudv_web/panels/index.html'
+    template_name = 'mcloudv_web/panels/templates/panels/index.html'
     page_title = _("Tests")
 
     def get_data(self):
