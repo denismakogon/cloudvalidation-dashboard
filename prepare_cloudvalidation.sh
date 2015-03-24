@@ -37,9 +37,9 @@ function check_succsess {
 
 function insert_plugin {
     local dest=$1
-    local src="${SCRIPT_DIR}/cloudvalidation_dashboard/local"
+    local src="${SCRIPT_DIR}/cloudvalidation_dashboard/local/*"
     echo "Moving plugin file from $src to $dest"
-    mv ${src} ${dest}
+    cp ${src} ${dest}
 
     check_succsess
 }
