@@ -21,7 +21,7 @@ from cloudvalidation_dashboard.tables import ostf_table
 
 class IndexView(tables.DataTableView):
     table_class = ostf_table.OSTFTable
-    template_name = 'cloudvalidation_dashboard/panels/index.html'
+    template_name = 'cloudvalidation_dashboard/index.html'
     page_title = _("Tests")
 
     def get_data(self):
