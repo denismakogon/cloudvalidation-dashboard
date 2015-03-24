@@ -13,18 +13,17 @@
 #    under the License.
 
 from django.utils.translation import ugettext_lazy as _
-from horizon import tables
 
-from mcloudv_web.external_api import cloudvalidation_ostf_adapter
-from mcloudv_web.tables import ostf_table
+import horizon
+
+from cloudvalidation_dashboard.panels import panel_groups
 
 
-class IndexView(tables.DataTableView):
-    table_class = ostf_table.OSTFTable
-    template_name = 'mcloudv_web/panels/templates/panels/index.html'
-    page_title = _("Tests")
+class CloudvalidationDashboard(horizon.Dashboard):
+    name = _("Cloudvalidation")
+    slug = "Cloudvalidation"
+    panels = (panel_groups.CloudvalidationPanelGroup, )
+    default_panel = ''
 
-    def get_data(self):
-        tests = (cloudvalidation_ostf_adapter.cloudvalidation_ostf_client().
-                 suites.list_tests_for_suites('fuel_health'))
-        return tests
+
+horizon.register(CloudvalidationDashboard)

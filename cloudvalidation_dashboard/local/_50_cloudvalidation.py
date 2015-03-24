@@ -12,14 +12,10 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-import horizon
-
-from django.utils.translation import ugettext_lazy as _
-
-from mcloudv_web.panels import panel
-
-
-class CloudvalidationPanelGroup(horizon.PanelGroup):
-    slug = "Cloudvalidation"
-    name = _("Cloudvalidation")
-    panels = (panel.OSTF.name,)
+# The name of the dashboard to be added to HORIZON['dashboards']. Required.
+DASHBOARD = 'Cloudvalidation'
+# If set to True, this dashboard will not be added to the settings.
+DISABLED = False
+ADD_INSTALLED_APPS = [
+    'cloudvalidation_dashboard',
+]

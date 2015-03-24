@@ -30,7 +30,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'mcloudv-web'
+project = u'Cloudvalidation Dashboard'
 copyright = u'2013, OpenStack Foundation'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -38,7 +38,7 @@ copyright = u'2013, OpenStack Foundation'
 # built documents.
 #
 # The short X.Y version.
-from mcloudv_web import version
+from cloudvalidation_dashboard import version
 # The full version, including alpha/beta/rc tags.
 release = version.release
 # The short X.Y version.

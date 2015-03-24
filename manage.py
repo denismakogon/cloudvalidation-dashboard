@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #    Copyright 2015 Mirantis, Inc
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -12,18 +13,12 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from cloudv_client import client as mcvclient
-
-from horizon.utils.memoized import memoized
-
-from mcloudv_web.common import cfg
-
-CONF = cfg.CONF
+import os
+import sys
 
 
-@memoized
-def cloudvalidation_ostf_client():
-    host = CONF.cloudvalidation_ostf_client.host
-    port = CONF.cloudvalidation_ostf_client.port
-    api_version = CONF.cloudvalidation_ostf_client.api_version
-    return mcvclient.Client(host, port, api_version)
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE",
+                          "cloudvalidation_dashboard.settings")
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(sys.argv)

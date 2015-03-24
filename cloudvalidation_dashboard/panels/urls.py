@@ -15,7 +15,7 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from mcloudv_web.panels import views
+from cloudvalidation_dashboard.panels import views
 
 
 urlpatterns = patterns(

@@ -17,7 +17,7 @@ from django.utils.translation import ungettext_lazy
 
 from horizon import tables
 
-from mcloudv_web.external_api import cloudvalidation_ostf_adapter
+from cloudvalidation_dashboard.external_api import cloudvalidation_ostf_adapter
 
 
 class ExecuteTest(tables.BatchAction):
