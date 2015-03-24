@@ -12,7 +12,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-from cloudv_ostf_adapter.cloudv_client import client as mcvclient
+from cloudv_client import client as mcvclient
 
 from horizon.utils.memoized import memoized
 
