@@ -1,5 +1,5 @@
-recursive-include cloudvalidation_dashboard/static *
-recursive-include cloudvalidation_dashboard/templates *
+recursive-include cloudvalidation/static *
+recursive-include cloudvalidation/templates *
 include ChangeLog
 include README.rst
 include MANIFEST.in
