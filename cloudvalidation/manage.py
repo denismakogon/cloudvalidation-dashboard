@@ -21,19 +21,12 @@ from cloudvalidation import cfg
 CONF = cfg.CONF
 
 
-def run_server(*args):
+def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE",
                           "cloudvalidation.settings")
     from django.core.management import execute_from_command_line
-    execute_from_command_line(args)
+    execute_from_command_line(sys.argv)
 
-
-def main():
-    cfg.parse_args(sys.argv)
-    CONF.reload_config_files()
-    host = CONF.dashboard_host
-    port = CONF.dashboard_port
-    run_server("runserver", "%s:%d" % (host, port))
 
 if __name__ == "__main__":
     main()

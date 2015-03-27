@@ -16,11 +16,6 @@ import os
 from oslo_config import cfg
 
 
-dashboard_settings = [
-    cfg.StrOpt("dashboard_host", default="0.0.0.0"),
-    cfg.IntOpt("dashboard_port", default="8877")
-]
-
 rest_client_opts = [
     cfg.StrOpt("cloudv_host",
                default=os.environ.get("MCLOUDV_HOST", "localhost")),
@@ -31,7 +26,7 @@ rest_client_opts = [
 ]
 
 CONF = cfg.CONF
-CONF.register_opts(dashboard_settings)
+
 CONF.register_opts(rest_client_opts)
 
 
