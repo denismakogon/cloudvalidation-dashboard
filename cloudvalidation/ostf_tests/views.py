@@ -36,11 +36,10 @@ class IndexView(horizon_tables.DataTableView):
     page_title = "OSTF tests"
     reports = []
 
-    def build_view_for_executed(self):
+    def build_view_for_executed(self, reports):
         tests = []
-        for report in self.reports:
+        for report in reports:
             tests.append(TestDescriptor(report['test'], report))
-        self.reports = []
         return tests
 
     def get_request_action(self, request):
@@ -53,14 +52,15 @@ class IndexView(horizon_tables.DataTableView):
             return action
 
     def execute_and_report(self):
+        reports = []
         tests = [a.split("=")[-1].replace("%3A", ":")
                  for a in self.request.body.split("&")
                  if a.startswith("object_id")]
         for test in tests:
             report = (cloudv.cloudvalidation_ostf_client().
                       tests.run(test, "fuel_health"))[0]
-            self.reports.append(report)
-        return self.build_view_for_executed()
+            reports.append(report)
+        return self.build_view_for_executed(reports)
 
     def get_data(self):
         resp = []
