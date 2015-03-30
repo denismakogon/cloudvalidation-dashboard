@@ -16,4 +16,6 @@ DASHBOARD = 'cloudvalidation_portal'
 DISABLED = False
 ADD_INSTALLED_APPS = [
     'cloudvalidation',
+    'openstack_dashboard.dashboards.identity',
+    'openstack_dashboard.dashboards.settings',
 ]
