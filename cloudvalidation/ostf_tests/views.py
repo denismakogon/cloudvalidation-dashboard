@@ -61,21 +61,25 @@ class IndexView(horizon_tables.DataTableView):
             reports.append(report)
         return self.build_view_for_executed(reports)
 
+    def _get_data_dict(self):
+        self.update_server_filter_action()
+        print (self.get_request_action())
+        self._data = {self.table_class._meta.name:
+                      self.get_data() if "execute"
+                      not in self.get_request_action()
+                      else self.execute_and_report()}
+
     def get_data(self):
         resp = []
-        print ("execute in self.get_request_action() %s"
-               % "execute" in self.get_request_action())
+        print (self.get_request_action())
         print(self.request.body)
-        if "execute" in self.get_request_action():
-            return self.execute_and_report()
-        else:
-            tests = (cloudv.cloudvalidation_ostf_client().
-                     suites.list_tests_for_suites('fuel_health'))['tests']
-            for test in tests:
-                report = {
-                    "report": '',
-                    "duration": "0.0s",
-                    "result": "-"
-                }
-                resp.append(TestDescriptor(test, report))
-            return resp
+        tests = (cloudv.cloudvalidation_ostf_client().
+                 suites.list_tests_for_suites('fuel_health'))['tests']
+        for test in tests:
+            report = {
+                "report": '',
+                "duration": "0.0s",
+                "result": "-"
+            }
+            resp.append(TestDescriptor(test, report))
+        return resp
