@@ -21,7 +21,9 @@ from cloudvalidation.api import cloudv
 
 
 class TestDescriptor(object):
+
     def __init__(self, test, report):
+        self._report = report
         self.id = str(uuid.uuid4())
         self.test = test
         self.report = report['report']
@@ -39,17 +41,14 @@ class IndexView(horizon_tables.DataTableView):
     def build_view_for_executed(self, reports):
         tests = []
         for report in reports:
-            tests.append(TestDescriptor(report['test'], report))
+            _report = TestDescriptor(report['test'], report)
+            tests.append(_report)
         return tests
 
-    def get_request_action(self, request):
-        action = ""
-        try:
-            action = [a for a in request.body.split("&")
-                      if a.startswith("action")][0]
-            return action.split("__")[-1]
-        finally:
-            return action
+    def get_request_action(self):
+        action = [a for a in self.request.body.split("&")
+                  if a.startswith("action")]
+        return action[0] if action else ""
 
     def execute_and_report(self):
         reports = []
@@ -64,7 +63,10 @@ class IndexView(horizon_tables.DataTableView):
 
     def get_data(self):
         resp = []
-        if "execute" in self.get_request_action(self.request):
+        print ("execute in self.get_request_action() %s"
+               % "execute" in self.get_request_action())
+        print(self.request.body)
+        if "execute" in self.get_request_action():
             return self.execute_and_report()
         else:
             tests = (cloudv.cloudvalidation_ostf_client().

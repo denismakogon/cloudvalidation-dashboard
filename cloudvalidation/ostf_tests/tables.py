@@ -7,7 +7,7 @@ from horizon import tables
 class ExecuteTest(tables.BatchAction):
     name = "execute"
     classes = ('btn-launch',)
-    help_text = _("Execute single test.")
+    help_text = _("Execute set of tests.")
 
     @staticmethod
     def action_present(count):
@@ -39,3 +39,4 @@ class OSTFTable(tables.DataTable):
         name = "OSTF tests"
         verbose_name = _("OSTF tests")
         table_actions = (ExecuteTest, )
+        raw_actions = (ExecuteTest, )

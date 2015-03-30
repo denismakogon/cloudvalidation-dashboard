@@ -1,0 +1,58 @@
+.form-group .required label:after {
+  content: " *";
+  color: red; }
+
+  .selected-source {
+    background: #eee;
+    padding: 12px 18px;
+    margin-top: 20px;
+    margin-bottom: 20px; }
+    .selected-source .chart {
+      width: 99%;
+      margin-bottom: 0;
+      padding: 10px; }
+      @media (min-width: 768px) {
+        .selected-source .chart {
+          border-left: 1px solid #ccc;
+          padding-left: 20px;   }
+}
+
+[ng-controller="LaunchInstanceSourceCtrl"] td.hi-light {
+  color: #0084d1; }
+  [ng-controller="LaunchInstanceSourceCtrl"] th.number,
+  [ng-controller="LaunchInstanceSourceCtrl"] td.number {
+    text-align: right;
+    padding-right: 30px; }
+
+.instance-source {
+  margin-top: 18px;
+  margin-bottom: 40px; }
+  .instance-source .image select {
+    width: 99%; }
+    .instance-source .volume-create {
+      padding-left: 0; }
+      .instance-source .volume-size input[type="number"] {
+        width: 100px; }
+        .instance-source .create-volume .checkbox,
+        .instance-source .delete-volume .checkbox {
+          margin-top: 1.5em; }
+[ng-controller="LaunchInstanceAccessAndSecurityCtrl"] dl.key-pair-details dt {
+  width: 15%; }
+  [ng-controller="LaunchInstanceAccessAndSecurityCtrl"] dl.key-pair-details dd {
+    width: 85%;
+    margin-left: 15%;
+    padding-right: 25px; }
+    [ng-controller="LaunchInstanceAccessAndSecurityCtrl"] dl.key-pair-details dd pre {
+      background: none; }
+[ng-controller="LaunchInstanceAccessAndSecurityCtrl"] .table-rsp.security-group-details {
+  background: none; }
+  [ng-controller="LaunchInstanceAccessAndSecurityCtrl"] .table-rsp.security-group-details td {
+    background: none !important;
+    padding: 15px !important; }
+[ng-controller="LaunchInstanceConfigurationCtrl"] .customization-script-source select,
+[ng-controller="LaunchInstanceConfigurationCtrl"] .disk-partition select {
+  width: 250px; }
+  [ng-controller="LaunchInstanceConfigurationCtrl"] .customization-script textarea {
+    width: 480px;
+    height: 280px;
+    font-family: Menlo, Monaco, Consolas, 'Courier New'; }

@@ -60,3 +60,4 @@ target/
 .secret_key_store
 *.lock
 local/
+static/dashboard/*
