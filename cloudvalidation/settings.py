@@ -1,17 +1,3 @@
-#    Copyright 2015 Mirantis, Inc
-#
-#    Licensed under the Apache License, Version 2.0 (the "License"); you may
-#    not use this file except in compliance with the License. You may obtain
-#    a copy of the License at
-#
-#         http://www.apache.org/licenses/LICENSE-2.0
-#
-#    Unless required by applicable law or agreed to in writing, software
-#    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-#    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-#    License for the specific language governing permissions and limitations
-#    under the License.
-
 # Copyright 2012 United States Government as represented by the
 # Administrator of the National Aeronautics and Space Administration.
 # All Rights Reserved.
@@ -42,7 +28,7 @@ from openstack_dashboard import exceptions
 from openstack_dashboard.static_settings import get_staticfiles_dirs  # noqa
 
 
-OPENSTACK_KEYSTONE_URL = "http://172.18.196.219:5000/v2.0/"
+OPENSTACK_KEYSTONE_URL = os.environ.get("OS_AUTH_URL", "http://172.18.196.219:5000/v2.0/")
 
 warnings.formatwarning = lambda message, category, *args, **kwargs: \
     '%s: %s' % (category.__name__, message)
@@ -144,6 +130,7 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'templates'),
+    os.path.join(ROOT_PATH, '../cloudvalidation'),
 )
 
 STATICFILES_FINDERS = (
@@ -302,7 +289,6 @@ STATICFILES_DIRS.append(
 
 # Load the pluggable dashboard settings
 import cloudvalidation.enabled
-# import openstack_dashboard.local.enabled
 from openstack_dashboard.utils import settings
 
 INSTALLED_APPS = list(INSTALLED_APPS)  # Make sure it's mutable

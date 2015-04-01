@@ -15,12 +15,12 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from cloudvalidation.ostf_tests.views \
-    import IndexView
+from cloudvalidation.ostf_tests import views
 
+VIEW_MODE = "cloudvalidation.ostf_tests.views"
 
 urlpatterns = patterns(
-    '',
-    url(r'^$', IndexView.as_view(), name='index'),
-    url(r'^$/', IndexView.as_view()),
+    VIEW_MODE,
+
+    url(r'^$', views.IndexView.as_view(), name='index'),
 )

@@ -1,13 +1,19 @@
+from django import shortcuts
+from django import http
+
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ungettext_lazy
 
 from horizon import tables
+from horizon import messages
+
+from cloudvalidation.api import cloudv
 
 
 class ExecuteTest(tables.BatchAction):
     name = "execute"
     classes = ('btn-launch',)
-    help_text = _("Execute set of tests.")
+    help_text = _("Execute test.")
 
     @staticmethod
     def action_present(count):
@@ -25,12 +31,37 @@ class ExecuteTest(tables.BatchAction):
             count
         )
 
+    def action(self, request, datum_id):
+        report = (cloudv.cloudvalidation_ostf_client().
+                  tests.run(datum_id, "fuel_health"))[0]
+        return report
+
+    def handle(self, table, request, obj_ids):
+        reports = []
+        for id in obj_ids:
+            report = self.action(reports, id)
+            self.update(request, id)
+            _test = ("Test %(test)s.\n"
+                     "Duration: %(duration)s.\n"
+                     "Result: %(result)s.\n"
+                     "Report: %(report)s.\n" % report)
+            reports.append(_test)
+        response = http.HttpResponse(status=200, reason="OK")
+        response['Content-Disposition'] = 'attachment; filename="reports"'
+        response['Content-Type'] = 'application/octet-stream'
+
+        view = ('Executed tests:'
+                '\n%(tests)s\n'
+                '\n%(reports)s\n')
+
+        response.write(view % {"tests": "\n".join(obj_ids),
+                               "reports": "\n".join(reports)})
+        response.close()
+        return response
+
 
 class OSTFTable(tables.DataTable):
     test = tables.Column("test", verbose_name=_("Test"))
-    duration = tables.Column("duration", verbose_name=_("Duration"))
-    result = tables.Column("result", verbose_name=_("Result"))
-    report = tables.Column("report", verbose_name=_("Report"))
 
     def get_object_id(self, datum):
         return datum.test
@@ -39,4 +70,4 @@ class OSTFTable(tables.DataTable):
         name = "OSTF tests"
         verbose_name = _("OSTF tests")
         table_actions = (ExecuteTest, )
-        raw_actions = (ExecuteTest, )
+        row_actions = (ExecuteTest, )

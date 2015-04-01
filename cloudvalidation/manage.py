@@ -23,7 +23,7 @@ CONF = cfg.CONF
 
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                          "openstack_dashboard.settings")
+                          "cloudvalidation.settings")
     from django.core.management import execute_from_command_line
     execute_from_command_line(sys.argv)
 
