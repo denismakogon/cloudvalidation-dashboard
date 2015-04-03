@@ -4,54 +4,34 @@ Mirantis Cloudvalidation UI
 
 To install this application you have to do next::
 
-   $ git clone https://github.com/openstack/horizon.git
+  $ git clone https://github.com/openstack/horizon.git
+  $ cd horizon; virtualenv .venv; source .venv/bin/activate;
+  $ wget https://raw.githubusercontent.com/denismakogon/cloudvalidation-dashboard/master/cloudvalidation/settings.py -O openstack_dashboard/settings.py
+  $ python setup.py install;
+  $ pip install git+https://github.com/denismakogon/cloudvalidation-dashboard.git;
+  $ pip install git+https://github.com/stackforge/cloudv-ostf-adapter.git
 
-   Once you do have cloned Horizon you need to do edit next lines in openstack_dashboard/setting.py:
+Once installation procedure is completed you will need to set next operating system variables::
 
-   OPENSTACK_KEYSTONE_URL = "http://A:5000/v2.0/"
+  OS_AUTH_URL=http://A:5000/v2.0/
+  MCLOUDV_HOST=B
+  MCLOUDV_PORT=C
+  MCLOUDV_API=D
 
-   where A is your cloud Keystone public IP endpoint
+  where:
+   A - OpenStack's Keystone host
+   B - Cloudvalidation server host, localhost is default
+   C - Cloudvalidation server port, 8777 is default
+   D - Cloudvalidation server API, v1 default
 
-   Add next line into TEMPLATE_DIRS
-
-   os.path.join(ROOT_PATH, '../cloudvalidation')
-
-   Edit next lines
-
-    import cloudvalidation.enabled
-    from openstack_dashboard.utils import settings
-
-    INSTALLED_APPS = list(INSTALLED_APPS)  # Make sure it's mutable
-    settings.update_dashboards(
-        [
-            cloudvalidation.enabled,
-        ],
-        HORIZON_CONFIG,
-        INSTALLED_APPS,
-    )
-    INSTALLED_APPS[0:0] = ADD_INSTALLED_APPS
-
-    Also please add:
-
-    ALLOWED_HOST = "0.0.0.0"
-
-    or
-
-    DEBUG = True
-
-
-Once you have done this, please proceed with next commands:
-
-   $ pip install git+https://github.com/stackforge/cloudv-ostf-adapter.git
-   $ pip install git+https://github.com/denismakogon/cloudvalidation-dashboard.git
-
-
-Once you've installed all applications you will have available next command:
+Once you've installed all applications you will have available next command::
 
     cloudvalidation-web
 
 NOTE: This is a wrapper for Django-based manage.py
 
-To run server you need this:
+To run server you need this::
 
     cloudvalidation-web runserver 0.0.0.0:8000
+
+
