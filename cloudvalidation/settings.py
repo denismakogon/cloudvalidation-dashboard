@@ -47,7 +47,7 @@ BIN_DIR = os.path.abspath(os.path.join(ROOT_PATH, '..', 'bin'))
 if ROOT_PATH not in sys.path:
     sys.path.append(ROOT_PATH)
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 SITE_BRANDING = 'OpenStack Dashboard'
@@ -166,6 +166,7 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'templates'),
+    os.path.join(ROOT_PATH, '../cloudvalidation')
 )
 
 STATICFILES_FINDERS = (
@@ -322,16 +323,13 @@ STATICFILES_DIRS.append(
     ('custom', CUSTOM_THEME),
 )
 
-# Load the pluggable dashboard settings
-import openstack_dashboard.enabled
-import openstack_dashboard.local.enabled
+import cloudvalidation.enabled
 from openstack_dashboard.utils import settings
 
 INSTALLED_APPS = list(INSTALLED_APPS)  # Make sure it's mutable
 settings.update_dashboards(
     [
-        openstack_dashboard.enabled,
-        openstack_dashboard.local.enabled,
+        cloudvalidation.enabled,
     ],
     HORIZON_CONFIG,
     INSTALLED_APPS,
@@ -371,24 +369,3 @@ auth_utils.patch_middleware_get_user()
 
 
 OPENSTACK_KEYSTONE_URL = os.environ.get("OS_AUTH_URL", "http://172.18.196.219:5000/v2.0/")
-
-import cloudvalidation.enabled
-from openstack_dashboard.utils import settings
-
-ADD_INSTALLED_APPS = []
-
-INSTALLED_APPS = list(INSTALLED_APPS)  # Make sure it's mutable
-settings.update_dashboards(
-    [
-        cloudvalidation.enabled,
-    ],
-    HORIZON_CONFIG,
-    INSTALLED_APPS,
-)
-INSTALLED_APPS[0:0] = ADD_INSTALLED_APPS
-
-TEMPLATE_DIRS = list(TEMPLATE_DIRS)
-TEMPLATE_DIRS.append(
-    os.path.join(ROOT_PATH, '../cloudvalidation')
-)
-TEMPLATE_DIRS = tuple(TEMPLATE_DIRS)
