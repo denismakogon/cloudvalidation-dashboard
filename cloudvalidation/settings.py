@@ -118,7 +118,7 @@ STATIC_URL = '/static/'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
-ROOT_URLCONF = 'horizon.test.urls'
+ROOT_URLCONF = 'openstack_dashboard.urls'
 TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'tests', 'templates'),
     os.path.join(ROOT_PATH, '../cloudvalidation'),
