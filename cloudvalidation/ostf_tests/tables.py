@@ -10,6 +10,33 @@ from horizon import messages
 from cloudvalidation.api import cloudv
 
 
+class CreateJob(tables.BatchAction):
+    name = "create"
+    verbose_name = "Create Job"
+    classes = ("btn-launch",)
+    icon = "plus"
+
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Create job",
+            u"Create jobs",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Create job",
+            u"Created jobs",
+            count
+        )
+
+    def handle(self, table, request, obj_ids):
+        request.session['tests'] = obj_ids
+        return shortcuts.redirect('/cloudvalidation_portal/jobs/create')
+
+
 class ExecuteTest(tables.BatchAction):
     name = "execute"
     classes = ('btn-launch',)
@@ -69,5 +96,5 @@ class OSTFTable(tables.DataTable):
     class Meta(object):
         name = "OSTF tests"
         verbose_name = _("OSTF tests")
-        table_actions = (ExecuteTest, )
+        table_actions = (ExecuteTest, CreateJob)
         row_actions = (ExecuteTest, )

@@ -16,8 +16,12 @@ import horizon
 
 from django.utils.translation import ugettext_lazy as _
 
+from cloudvalidation import dashboard
 
-class CloudvalidationGroup(horizon.PanelGroup):
-    slug = "Cloudvalidation Center"
-    name = _("Cloudvalidation Center")
-    panels = ('ostf_tests',)
+
+class Ostf_Jobs(horizon.Panel):
+    name = _("OSTF Jobs")
+    slug = "jobs"
+
+
+dashboard.Cloudvalidation.register(Ostf_Jobs)
