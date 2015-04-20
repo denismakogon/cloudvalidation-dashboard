@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Job Details" %}{% endblock %}
+
+{% block main %}
+  <div class="row">
+    <div class="col-sm-12">
+    {% include 'ostf_jobs/templates/ostf_jobs/_job.html' %}
+    </div>
+  </div>
+{% endblock %}
